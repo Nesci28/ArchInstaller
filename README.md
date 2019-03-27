@@ -1,2 +1,2 @@
 # ArchInstaller
-Arch custom installer script / Rice
+Arch Linux custom installer script and Rice dotfiles.
