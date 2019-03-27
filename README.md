@@ -3,10 +3,10 @@
 Installs an UEFI and BIOS bootable USB Arch Linux
 
 Installs the minimum number of packages :
-| base               | base-devel     | ifplugd     |
-|:-------            |:-------        |:------      |
-| __grub__           | __efibootmgr__ | __iw__      |
-| __wpa_supplicant__ | __dialog__     | __wget__    |
+| base                | base-devel     | ifplugd     |
+|:-------             |:-------        |:------      |
+| __grub__            | __efibootmgr__ | __iw__      |
+| __wpa\_supplicant__ | __dialog__     | __wget__    |
 
 ### Usage
 ```bash
