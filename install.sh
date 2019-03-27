@@ -48,45 +48,47 @@ getdisk() {
 
 # Partition the disk
 partition() {
-  sudo gdisk ${disk} <<EOF
-o
-Y
-n
-1
-
-+1MB
-EF02
-n
-2
-
-+100MB
-EF00
-n
-3
-
-+10MB
-0700
-n
-4
-
-
-8300
-w
-EOF
+  read -p "Default or custom partition [D/c] ? " choice
+  if [[ $choice == "C" || $choice == "c" ]]; then
+    read -p "NTFS partition [Y/n] ? " ntfs
+    if [[ $ntfs == "Y" || $ntfs == "y" ]]; then
+      read -p "size in MB ? " size
+      if ! [[ $size ~= ^[0-9]$ ]]; then
+        errorMessage
+        partition
+      fi
+      customNtfsPartition
+    elif [[ $ntfs == "N" || $ntfs == "n" ]]; then
+      customPartition
+    fi
+  elif [[ $choice == "D" || $choice == "d" ]]; then
+    defaultPartition
+  else
+    messageError
+    partition
+  fi
 }
 
 # Format the partitions
 format() {
   mkfs.fat -F32 ${disk}2
-  mkfs.ext4 ${disk}3
+  if [[ $ntfs == "Y" || $ntfs == "y" ]]; then
+    mkfs.ext4 ${disk}4
+  else
+    mkfs.ext4 ${disk}3
+  fi
 }
 
 # Mount the partitions
 mount() {
   mkdir -p /mnt/usb
-  mount /dev/sdX3 /mnt/usb
+  if [[ $ntfs == "Y" || $ntfs == "y" ]]; then
+    mount ${disk}4 /mnt/usb
+  else 
+    mount ${disk}3 /mnt/usb
+  fi
   mkdir /mnt/usb/boot
-  mount /dev/sdX2 /mnt/usb/boot
+  mount ${disk}2 /mnt/usb/boot
 }
 
 # Download and install the minimum packages
@@ -140,7 +142,7 @@ bootloaders() {
 }
 
 pacman() {
-  pacman -S ifplugd iw wpa_supplicant dialog --noconfirm
+  pacman -S ifplugd iw wpa_supplicant dialog wget --noconfirm
 }
 
 user() {
@@ -168,6 +170,87 @@ quit() {
   timedatectl set-ntp true
   exit
   umount /mnt/usb/boot /mnt/usb
+}
+
+
+# Partitions
+defaultPartition() {
+  sudo gdisk ${disk} <<EOF
+o
+Y
+n
+1
+
++1MB
+EF02
+n
+2
+
++100MB
+EF00
+n
+3
+
++10MB
+0700
+n
+4
+
+
+8300
+w
+EOF
+}
+
+customNtfsPartition() {
+  sudo gdisk ${disk} <<EOF
+o
+Y
+n
+1
+
++1MB
+EF02
+n
+2
+
++100MB
+EF00
+n
+3
+
++${size}MB
+0700
+n
+4
+
+
+8300
+w
+EOF
+}
+
+customPartition() {
+  sudo gdisk ${disk} <<EOF
+o
+Y
+n
+1
+
++1MB
+EF02
+n
+2
+
++100MB
+EF00
+n
+3
+
+
+8300
+w
+EOF
 }
 
 # Error messages
