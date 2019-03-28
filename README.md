@@ -30,14 +30,14 @@ It saves all the dialog informations and install the packages only once, for a m
 
 | De/Wm         | Drivers    | Multimedia | Productivity  | Internet | Image       | Coding | Other            |
 | -----         | -----      | -----      | -----         | -----    | -----       | -----  | -----            |
-| i3            | Nvidia     | Spotify    | LibreOffice   | Chromium | Gimp        | VsCode | Cuda (libraries) |
+| i3            | Nvidia     | Spotify    | LibreOffice   | Chromium | Gimp        | VsCode | OpenSSL          |
 | i3-gaps       | Nvidia-Lts | Discord    | Gedit         | Firefox  | ImageMagick | Atom   | Gparted          |
-| Gnome         | Opencl-Amd | Deluge     | Vim           | Vivaldi  |             | Npm    | Rxvt-Unicode     |
+| Gnome         | Opencl-Amd | Lazyman    | Vim           | Vivaldi  |             | Npm    | Rxvt-Unicode     |
 | Kde           | Nouveau    | Vlc        |               | Midori   |		         | Nodejs | Nm-applet        |
-| Xfce4         | Mesa       | Mpv        |               |          |             |        | Pasystray        |
-| Cinammon      |            | LazyMan    |               |          |             |
-| Xorg          |
-| Xorg-Settings |       
+| Xfce4         | Mesa       | Mpv        |               | Deluge   |             |        | Pasystray        |
+| Cinammon      |            |            |               |          |             |        | OpenSSH          | 
+| Xorg          |            |            |               |          |             |        | Libmicrohttpd    |
+| Xorg-Server   |            |            |               |          |             |        | 
 
 ## Dotfiles.sh
 - .xinitrc
