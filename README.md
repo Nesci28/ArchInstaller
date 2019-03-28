@@ -1,35 +1,45 @@
 # Arch Linux Installer
-### Install.sh
-Installs an UEFI and BIOS bootable USB Arch Linux
 
-Installs the minimum number of packages :
+## Install.sh
+*Installs an UEFI and BIOS bootable USB Arch Linux.*
+
+__Included packages :__
 | base                | base-devel     | ifplugd     |
 |:-------             |:-------        |:------      |
 | __grub__            | __efibootmgr__ | __iw__      |
-| __wpa\_supplicant__ | __dialog__     | __wget__    |
+| __wpa_supplicant__  | __dialog__     | __wget__    |
+
+__Partitions schema :__
+1) `BIOS     1MB EF02`
+2) `UEFI   100MB EF00`
+3) `NTFS (Optionnal)`
+4) `Linux 8300`
 
 ### Usage
 ```bash
 wget https://raw.githubusercontent.com/Nesci28/ArchInstaller/master/install.sh
-or
+or a smaller link :
 wget https://bit.ly/2V3wF9q
+
 chmod +x Install.sh
 ./Install.sh
 ```
-### Packages.sh
-Shows a dialog with a list of popular packages to get a working DE
+## Packages.sh
+Shows a dialog, breaked down in categories, with a list of popular packages to get a working desktop a.s.a.p
+It saves all the dialog informations and install the packages only once, for a maximum of productivity.
 
+| De/Wm         | Drivers    | Multimedia | Productivity  | Internet | Image       | Coding | Other            |
+| -----         | -----      | -----      | -----         | -----    | -----       | -----  | -----            |
+| i3            | Nvidia     | Spotify    | LibreOffice   | Chromium | Gimp        | VsCode | Cuda (libraries) |
+| i3-gaps       | Nvidia-Lts | Discord    | Gedit         | Firefox  | ImageMagick | Atom   | Gparted          |
+| Gnome         | Opencl-Amd | Deluge     | Vim           | Vivaldi  |             | Npm    | Rxvt-Unicode     |
+| Kde           | Nouveau    | Vlc        |               | Midori   |		         | Nodejs | Nm-applet        |
+| Xfce4         | Mesa       | Mpv        |               |          |             |        | Pasystray        |
+| Cinammon      |            | LazyMan    |               |          |             |
+| Xorg          |
+| Xorg-Settings |       
 
-| i3-gaps              | xorg         | nm-applet   |
-|:-----                |:-----        |:-----       |
-| __rxvt-unicode__     | __chromium__ | __vscode__  |
-| __pasystray__        | __gedit__    | __vim__     |
-| __cuda (Libraries)__ | __yay__      | __spotify__ |
-| __libreoffice__      | __discord__  | __firefox__ |
-| __gimp__             | __deluge__   | __gparted__ |  
-| __vlc__              | 
-
-# Dotfiles.sh
+## Dotfiles.sh
 - .xinitrc
 - .bashrc
 - .config/i3/config

@@ -91,6 +91,22 @@ mount() {
   mount ${disk}2 /mnt/usb/boot
 }
 
+# Setting up the mirrorlist
+mirrorList() {
+  countries=("AU" "AT" "BD" "BY" "BE" "BA" "BR" "BG" "CA" "CL" "CN" "CO" "HR" "CZ" "DK" "EC" "FI" "FR" "GE" "DE" "GR" "HK" "HU" "IS" "IN" "ID" "IR" "IE" "IL" "IT" "JP" "KZ" "KE" "LV" "LT" "LU" "MK" "MX" "NL" "NC" "NZ" "NO" "PY" "PH" "PL" "PT" "QA" "RO" "RU" "RS" "SG" "SK" "SI" "ZA" "KR" "ES" "SE" "CH" "TW" "TH" "TR" "UA" "GB" "US" "VN")
+  type list | sed '1,3d;$d' | sed 's/ //g' | sed 's/;//g'
+  list
+  read -p "Enter the symbol of the country [CA/US/RU/...]" symbol
+  containsElement "${symbol^^}" "${countries[@]}"
+  if [[ $? == 0 ]]; then
+    wget `https://www.archlinux.org/mirrorlist/?country=${symbol^^}&protocol=http&protocol=https&ip_version=4` >/etc/pacman.d/mirrorlist
+    pacman -Syy
+  else
+    errorMessage
+    mirrorList
+  fi
+}
+
 # Download and install the minimum packages
 pacstrap() {
   pacstrap /mnt/usb base base-devel --noconfirm
@@ -253,6 +269,81 @@ w
 EOF
 }
 
+list() {
+  AT="Austria"
+  AU="Australia";
+  BA="Bosnia and Herzegovina";
+  BD="Bangladesh";
+  BE="Belgium";
+  BG="Bulgaria";
+  BR="Brazil";
+  BY="Belarus";
+  CA="Canada";
+  CH="Switzerland";
+  CL="Chile";
+  CN="China";
+  CO="Colombia";
+  CZ="Czechia";
+  DE="Germany";
+  DK="Denmark";
+  EC="Ecuador";
+  ES="Spain";
+  FI="Finland";
+  FR="France";
+  GB="United Kingdom";
+  GE="Georgia";
+  GR="Greece";
+  HK="Hong Kong";
+  HR="Croatia";
+  HU="Hungary";
+  ID="Indonesia";
+  IE="Ireland";
+  IL="Israel";
+  IN="India";
+  IR="Iran";
+  IS="Iceland";
+  IT="Italy";
+  JP="Japan";
+  KE="Kenya";
+  KR="South Korea";
+  KZ="Kazakhstan";
+  LT="Lithuania";
+  LU="Luxembourg";
+  LV="Latvia";
+  MK="Macedonia";
+  MX="Mexico";
+  NC="New Caledonia";
+  NL="Netherlands";
+  NO="Norway";
+  NZ="New Zealand";
+  PH="Philippines";
+  PL="Poland";
+  PT="Portugal";
+  PY="Paraguay";
+  QA="Qatar";
+  RO="Romania";
+  RS="Serbia";
+  RU="Russia";
+  SE="Sweden";
+  SG="Singapore";
+  SI="Slovenia";
+  SK="Slovakia";
+  TH="Thailand";
+  TR="Turkey";
+  TW="Taiwan";
+  UA="Ukraine";
+  US="United States";
+  VN="Vietnam"
+  ZA="South Africa";
+}
+
+containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
 # Error messages
 errorMessage() {
   echo -e "Input error, try again"
@@ -279,6 +370,9 @@ format
 clear
 read -p "Mounting the partitions" var
 mount
+clear
+read -p "Setting up the mirrorlist" var
+mirrorList
 clear
 read -p "Downloading base and base-devel" var
 pacstrap
