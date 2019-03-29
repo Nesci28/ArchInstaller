@@ -32,10 +32,10 @@ It saves all the dialog informations and install the packages only once, for a m
 | -----         | -----      | -----      | -----         | -----    | -----       | -----  | -----            |
 | i3            | Nvidia     | Spotify    | LibreOffice   | Chromium | Gimp        | VsCode | OpenSSL          |
 | i3-gaps       | Nvidia-Lts | Discord    | Gedit         | Firefox  | ImageMagick | Atom   | Gparted          |
-| Gnome         | Opencl-Amd | Lazyman    | Vim           | Vivaldi  |             | Npm    | Rxvt-Unicode     |
-| Kde           | Nouveau    | Vlc        |               | Midori   |		         | Nodejs | Nm-applet        |
-| Xfce4         | Mesa       | Mpv        |               | Deluge   |             |        | Pasystray        |
-| Cinammon      |            |            |               |          |             |        | OpenSSH          | 
+| Gnome         | Opencl-Amd | Lazyman    | Vim           | Vivaldi  |             | Npm    | Yay              |
+| Kde           | Nouveau    | Vlc        | Rxvt-Unicode  | Midori   |		         | Nodejs | Nm-applet        |
+| Xfce4         | Mesa       | Mpv        |               | Deluge   |             | Git    | Pasystray        |
+| Cinnamon      |            |            |               |          |             |        | OpenSSH          | 
 | Xorg          |            |            |               |          |             |        | Libmicrohttpd    |
 | Xorg-Server   |            |            |               |          |             |        | 
 
